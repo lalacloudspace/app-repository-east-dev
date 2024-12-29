@@ -1,11 +1,124 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>LALA's Website</title>
-</head>
-<body>
-  <h1 style="text-align:center;">LALA</h1>
-  <a href="error.html">Error Page</a>
-</body>
-</html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abaya Collection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 40px;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            margin-bottom: 40px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-gallery .image-container {
+            position: relative;
+        }
+
+        .image-gallery .image-container h2 {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Abaya Collection</h1>
+    <p>Explore our elegant collection of abayas!</p>
+
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+        <div class="image-container">
+            <img src="images/black-silk-abaya.jpg" alt="Elegant Black Silk Abaya">
+            <h2>Elegant Black Silk Abaya</h2>
+        </div>
+        <div class="image-container">
+            <img src="images/blue-silk-abaya.jpg" alt="Chic Blue Silk Abaya">
+            <h2>Chic Blue Silk Abaya</h2>
+        </div>
+        <div class="image-container">
+            <img src="images/pink-silk-abaya.jpg" alt="Stylish Pink Silk Abaya">
+            <h2>Stylish Pink Silk Abaya</h2>
+        </div>
+        <div class="image-container">
+            <img src="images/green-silk-abaya.jpg" alt="Graceful Green Silk Abaya">
+            <h2>Graceful Green Silk Abaya</h2>
+        </div>
+        <div class="image-container">
+            <img src="images/white-silk-abaya.jpg" alt="Classic White Silk Abaya">
+            <h2>Classic White Silk Abaya</h2>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Lux Abaya Collection | <a href="https://www.luxabaya.com/contact">Contact Us</a> | <a href="https://www.luxabaya.com/about">About Us</a></p>
+    </footer>
+
+</body>
+
+</html>
