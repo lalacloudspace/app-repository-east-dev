@@ -1,0 +1,34 @@
+version: 0.2
+
+env:
+  variables:
+    DOMAIN_NAME: "luxabaya.com"  # Set your domain name here
+    ACM_CERTIFICATE_ARN: "arn:aws:acm:region:account-id:certificate/your-certificate-id"  # Replace with your ACM certificate ARN
+    BUCKET_NAME: "theabayacollection-bucket"  # Set your S3 bucket name here
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    
+  pre_build:
+    commands:
+      # You can perform any steps required before building the CloudFormation template, such as checking the code
+      - echo "Pre-build steps can be added here"
+    
+  build:
+    commands:
+      # Create the CloudFormation template (could be fetched from GitHub or generated dynamically)
+      - echo "Building CloudFormation Template"
+      - aws cloudformation create-stack --stack-name pipelineStack --template-body file://s3_static_web.yml --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=DomainName,ParameterValue=$DOMAIN_NAME ParameterKey=ACMCertificateArn,ParameterValue=$ACM_CERTIFICATE_ARN ParameterKey=HostedZoneId,ParameterValue=$HOSTED_ZONE_ID ParameterKey=BucketName,ParameterValue=$BUCKET_NAME
+      - echo "CloudFormation Stack creation triggered"
+
+  post_build:
+    commands:
+      - echo "Checking CloudFormation Stack status"
+      - aws cloudformation describe-stacks --stack-name pipelineStack
+      - echo "Deployment finished"
+
+artifacts:
+  files:
+    - '**/*'
