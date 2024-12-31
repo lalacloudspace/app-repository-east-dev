@@ -23,8 +23,7 @@ phases:
       
   post_build:
     commands:
-      - echo "CloudFormation Stack creation triggered"
-      - aws cloudformation describe-stacks --stack-name my-pipeline-stack
+      - echo "Checking CloudFormation Stack"
 
 artifacts:
   files:
