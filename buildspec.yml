@@ -4,8 +4,8 @@ version: 0.2
 
 env:
   parameter-store:
-    ACM_CERTIFICATE_ARN: "/my/ssm/path/ACMcertification"   # SSM parameter for ACM Certificate ARN
-    HOSTED_ZONE_ID: "/my/ssm/path/HostedZoneID"  # SSM parameter for Hosted Zone ID
+    ACM_CERTIFICATE_ARN: "ACMcertification"   # SSM parameter for ACM Certificate ARN
+    HOSTED_ZONE_ID: "HostedZoneID"  # SSM parameter for Hosted Zone ID
   variables:
     DOMAIN_NAME: "luxabaya.com"  # Hardcoded domain name
     BUCKET_NAME: "theabayacollection-bucket"  # S3 bucket name
