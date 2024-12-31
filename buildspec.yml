@@ -20,15 +20,7 @@ phases:
   build:
     commands:
       - echo "Building CloudFormation Stack"
-      - aws cloudformation create-stack --stack-name my-pipeline-stack \
-        --template-body file://s3_static_web.yml \
-        --capabilities CAPABILITY_NAMED_IAM \
-        --parameters \
-        ParameterKey=DomainName,ParameterValue=$DOMAIN_NAME \
-        ParameterKey=ACMCertificateArn,ParameterValue=$ACM_CERTIFICATE_ARN \
-        ParameterKey=HostedZoneId,ParameterValue=$HOSTED_ZONE_ID \
-        ParameterKey=BucketName,ParameterValue=$BUCKET_NAME
-
+      
   post_build:
     commands:
       - echo "CloudFormation Stack creation triggered"
