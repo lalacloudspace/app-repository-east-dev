@@ -4,6 +4,7 @@ env:
   parameter-store:
     ACM_CERTIFICATE_ARN: "ACMcertification"   # SSM parameter for ACM Certificate ARN
     HOSTED_ZONE_ID: "HostedZoneID"  # SSM parameter for Hosted Zone ID
+  
   variables:
     DOMAIN_NAME: "luxabaya.com"  # Hardcoded domain name
     BUCKET_NAME: "theabayacollection-bucket"  # S3 bucket name
@@ -15,16 +16,25 @@ phases:
 
   pre_build:
     commands:
-      - echo "Running pre-build commands"
+      - echo "Installing dependencies, if any"
 
   build:
     commands:
-      - echo "Building CloudFormation Stack"
-      
+      - echo "Uploading static website files to S3"
+      - aws s3 cp index.html s3://theabayacollection-bucket/index.html --acl bucket-owner-full-control
+      - aws s3 cp error.html s3://theabayacollection-bucket/error.html --acl bucket-owner-full-control
+
   post_build:
     commands:
-      - echo "Checking CloudFormation Stack"
+      - echo "Validating CloudFormation Template"
+      - aws cloudformation validate-template --template-body file://s3_static_web.yml
+      - echo "Deploying CloudFormation stack"
+      - aws cloudformation create-stack --stack-name pipeline-stack-dev --template-body file://s3_static_web.yml --capabilities CAPABILITY_NAMED_IAM \
+          --parameters ParameterKey=DomainName,ParameterValue=luxabaya.com \
+          ParameterKey=BucketName,ParameterValue=theabayacollection-bucket
+      - echo "Build stage completed"
 
 artifacts:
   files:
     - '**/*'
+
