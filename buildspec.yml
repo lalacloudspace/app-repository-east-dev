@@ -17,7 +17,6 @@ phases:
     commands:
       - echo "Preparing to create CloudFormation stack"
       - echo "Checking for the existence of template file"
-      - ls -l app-repository-east-dev/s3_static_web.yml  # List the file to ensure it's in the correct path
 
   build:
     commands:
