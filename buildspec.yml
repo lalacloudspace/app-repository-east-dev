@@ -22,7 +22,6 @@ phases:
   build:
     commands:
       - echo "Creating CloudFormation stack"
-      - cat app-repository-east-dev/s3_static_web.yml  # Check the contents of the template to make sure it's correctly loaded
       - aws cloudformation create-stack --stack-name pipeline-stack-web-app \
           --template-body file://app-repository-east-dev/s3_static_web.yml \
           --capabilities CAPABILITY_NAMED_IAM \
