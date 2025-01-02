@@ -12,22 +12,15 @@ phases:
 
   pre_build:
     commands:
-      - echo "Installing dependencies, if any"
-      # Fetching ACM Certificate ARN and Hosted Zone ID from Parameter Store
       - echo "Fetching ACM Certificate ARN and Hosted Zone ID from Parameter Store"
-      - |
-        ACM_CERTIFICATE_ARN=$(aws ssm get-parameter --name ACMcertification --query 'Parameter.Value' --output text)
-        export ACM_CERTIFICATE_ARN
-      - |
-        HOSTED_ZONE_ID=$(aws ssm get-parameter --name HostedZoneID --query 'Parameter.Value' --output text)
-        export HOSTED_ZONE_ID
+      - export ACM_CERTIFICATE_ARN=$(aws ssm get-parameter --name ACMcertification --query 'Parameter.Value' --output text)
+      - export HOSTED_ZONE_ID=$(aws ssm get-parameter --name HostedZoneID --query 'Parameter.Value' --output text)
       - echo "ACM Certificate ARN: $ACM_CERTIFICATE_ARN"
       - echo "Hosted Zone ID: $HOSTED_ZONE_ID"
 
-
   build:
     commands:
-      - echo "Deploying CloudFormation stack"
+      - echo "Creating CloudFormation stack"
       - aws cloudformation create-stack --stack-name pipeline-stack-dev \
           --template-body file://s3_static_web.yml \
           --capabilities CAPABILITY_NAMED_IAM \
@@ -35,7 +28,6 @@ phases:
                        ParameterKey=BucketName,ParameterValue=$BUCKET_NAME \
                        ParameterKey=ACMCertificateArn,ParameterValue=$ACM_CERTIFICATE_ARN \
                        ParameterKey=HostedZoneId,ParameterValue=$HOSTED_ZONE_ID
-      - echo "Stack created successfully"
 
   post_build:
     commands:
