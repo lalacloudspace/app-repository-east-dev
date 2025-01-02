@@ -3,18 +3,18 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.9  # This ensures Python 3.8 is available
+      python: 3.8  # Ensure Python is available
 
   pre_build:
     commands:
-      - python --version  # Check the Python version installed
+      - python --version  # Verify Python version
       - echo "Validating the CloudFormation template..."
-      - aws cloudformation validate-template --template-body file://s3_static_web.yml
+      - aws cloudformation validate-template --template-body file://app-repository-east-dev/s3_static_web.yml
 
   build:
     commands:
       - echo "Packaging the CloudFormation template..."
-      - aws cloudformation package --template-file s3_static_web.yml \
+      - aws cloudformation package --template-file app-repository-east-dev/s3_static_web.yml \
           --s3-bucket theabayacollection-bucket \
           --output-template-file packaged-s3_static_web.yml
 
