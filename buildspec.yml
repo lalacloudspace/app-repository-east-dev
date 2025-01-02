@@ -2,18 +2,31 @@ version: 0.2
 
 env:
   variables:
+    DOMAIN_NAME: "luxabaya.com"
     BUCKET_NAME: "theabayacollection-bucket"
 
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: 3.8  
+    commands:
+      - echo "Installing dependencies"
+      - pip install -r requirements.txt
 
   pre_build:
     commands:
-      - echo "No dependencies to install"
+      - echo "Fetching SSM parameters"
+      - export ACM_CERTIFICATE_ARN=$(aws ssm get-parameter --name ACMcertification --query 'Parameter.Value' --output text)
+      - export HOSTED_ZONE_ID=$(aws ssm get-parameter --name HostedZoneID --query 'Parameter.Value' --output text)
+      - echo "ACM Certificate ARN: $ACM_CERTIFICATE_ARN"
+      - echo "Hosted Zone ID: $HOSTED_ZONE_ID"
 
   build:
+    commands:
+      - echo "Building static website"
+      - npm run build
+
+  post_build:
     commands:
       - echo "Uploading static website files to S3"
       - aws s3 cp index.html s3://$BUCKET_NAME/index.html --acl bucket-owner-full-control
@@ -22,3 +35,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+     
