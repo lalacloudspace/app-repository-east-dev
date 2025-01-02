@@ -19,7 +19,7 @@ phases:
   build:
     commands:
       - echo "Creating CloudFormation stack"
-      - aws cloudformation create-stack --stack-name pipeline-stack-web-app \
+      - aws cloudformation create-stack --stack-name pipelinestackwebapp \
         --template-body s3_static_web.yml \
         --parameters ParameterKey=DomainName,ParameterValue=$DOMAIN_NAME \
                      ParameterKey=BucketName,ParameterValue=$BUCKET_NAME \
