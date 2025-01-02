@@ -21,19 +21,16 @@ phases:
   build:
     commands:
       - echo "Deploying CloudFormation stack"
-      # Create the CloudFormation stack to ensure the bucket is created first
+      # Fix the command to separate --capabilities and --parameters correctly
       - aws cloudformation create-stack --stack-name pipeline-stack-dev --template-body file://s3_static_web.yml --capabilities CAPABILITY_NAMED_IAM \
-          --parameters ParameterKey=DomainName,ParameterValue=luxabaya.com \
-          ParameterKey=BucketName,ParameterValue=theabayacollection-bucket
+          --parameters ParameterKey=DomainName,ParameterValue=luxabaya.com ParameterKey=BucketName,ParameterValue=theabayacollection-bucket
       - echo "Waiting for CloudFormation stack creation to complete"
-      # Wait for the CloudFormation stack to be created before continuing
       - aws cloudformation wait stack-create-complete --stack-name pipeline-stack-dev
       - echo "CloudFormation stack created successfully"
 
   post_build:
     commands:
       - echo "Uploading static website files to S3"
-      # Now that the bucket is created, upload the files
       - aws s3 cp index.html s3://theabayacollection-bucket/index.html --acl bucket-owner-full-control
       - aws s3 cp error.html s3://theabayacollection-bucket/error.html --acl bucket-owner-full-control
       - echo "Validating CloudFormation Template"
@@ -43,3 +40,4 @@ phases:
 artifacts:
   files:
     - '**/*'
+
