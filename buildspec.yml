@@ -21,7 +21,7 @@ phases:
   build:
     commands:
       - echo "Creating CloudFormation stack"
-      - create-stack --stack-name pipeline-stack-web-app \
+      - create-stack --stack-name pipelinestackweb \
           --template-body file://app-repository-east-dev/s3_static_web.yml \
           --capabilities CAPABILITY_NAMED_IAM \
           --parameters ParameterKey=DomainName,ParameterValue=luxabaya.com \
