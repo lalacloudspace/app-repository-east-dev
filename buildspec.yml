@@ -7,7 +7,7 @@ phases:
   
   pre_build:
     commands:
-      - echo "This is the reference"
+      - echo "reference here"
       - DOMAIN_NAME= luxabaya.com  
       - BUCKET_NAME= theabayacollection-bucket  
       - ACM_CERTIFICATE_ARN= aws ssm get-parameter --name "ACMcertification" --query "Parameter.Value" --output text
