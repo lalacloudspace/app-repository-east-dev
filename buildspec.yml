@@ -8,9 +8,8 @@ phases:
   pre_build:
     commands:
       - python --version  # Verify Python version
-      - cd app-repository-east-dev
       - echo "Validating CloudFormation template..."
-      - aws cloudformation validate-template --template-body file://app-repository-east-dev/s3_static_web.yml --region us-east-1
+      # aws cloudformation validate-template --template-body file://app-repository-east-dev/s3_static_web.yml --region us-east-1
   build:
     commands:
       - echo "Creating CloudFormation stack..."
