@@ -8,16 +8,22 @@ phases:
   pre_build:
     commands:
       - python --version  # Verify Python version
-      - echo "Validating the CloudFormation template..."
+      - echo "Cloning the repository..."
+      - git clone https://github.com/your-username/your-repository.git
+      - cd your-repository
+      - echo "Validating CloudFormation template..."
       - aws cloudformation validate-template --template-body file://s3_static_web.yml --region us-east-1
-
   build:
     commands:
-      - echo "Packaging the CloudFormation template..."
-      - aws cloudformation package --template-file s3_static_web.yml \
-          --s3-bucket theabayacollection-bucket \
-          --output-template-file packaged-s3_static_web.yml
-
+      - echo "Creating CloudFormation stack..."
+      - aws cloudformation create-stack \
+          --stack-name mypipelinestack \
+          --template-body file://s3_static_web.yml \
+          --region us-east-1 \
+          --capabilities CAPABILITY_NAMED_IAM
+      - echo "Waiting for stack creation to complete..."
+      - aws cloudformation wait stack-create-complete --stack-name my-static-website-stack
+ 
   post_build:
     commands:
       - echo "Uploading website files to S3..."
