@@ -9,7 +9,7 @@ phases:
     commands:
       - python --version  # Verify Python version
       - echo "Validating the CloudFormation template..."
-      #- aws cloudformation validate-template --template-body file://s3_static_web.yml
+      - aws cloudformation validate-template --template-body file://s3_static_web.yml --region us-east-1
 
   build:
     commands:
