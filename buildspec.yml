@@ -9,8 +9,8 @@ phases:
     commands:
       - python --version  # Verify Python version
       - echo "Cloning the repository..."
-      - git clone https://github.com/your-username/your-repository.git
-      - cd your-repository
+      - git clone https://github.com/lalacloudspace/app-repository-east-dev.git
+      - cd app-repository-east-dev
       - echo "Validating CloudFormation template..."
       - aws cloudformation validate-template --template-body file://s3_static_web.yml --region us-east-1
   build:
